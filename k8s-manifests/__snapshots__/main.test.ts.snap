@@ -1,0 +1,2161 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Placeholder Empty 1`] = `
+Array [
+  Object {
+    "apiVersion": "v1",
+    "kind": "Namespace",
+    "metadata": Object {
+      "name": "shanoir-ng",
+    },
+  },
+  Object {
+    "apiVersion": "v1",
+    "data": Object {
+      "SHANOIR_ADMIN_EMAIL": "admin@example.com",
+      "SHANOIR_ADMIN_NAME": "Admin",
+      "SHANOIR_ALLOWED_ADMIN_IPS": "0.0.0.0/0",
+      "SHANOIR_INSTANCE_COLOR": "#1f4e79",
+      "SHANOIR_INSTANCE_NAME": "Shanoir NG",
+      "SHANOIR_KEYCLOAK_ADAPTER_MODE": "true",
+      "SHANOIR_MIGRATION": "true",
+      "SHANOIR_PREFIX": "shanoir-ng-",
+      "SHANOIR_SMTP_HOST": "smtp.example.com",
+      "SHANOIR_URL_HOST": "shanoir.example.com",
+      "SHANOIR_URL_SCHEME": "https",
+      "SHANOIR_VIEWER_OHIF_URL_HOST": "ohif.example.com",
+      "SHANOIR_VIEWER_OHIF_URL_SCHEME": "https",
+      "SHANOIR_X_FORWARDED": "true",
+      "VIP_SERVICE_EMAIL": "vip@example.com",
+      "VIP_URL_HOST": "vip.example.com",
+      "VIP_URL_SCHEME": "https",
+    },
+    "kind": "ConfigMap",
+    "metadata": Object {
+      "name": "shanoir-config",
+      "namespace": "shanoir-ng",
+    },
+  },
+  Object {
+    "apiVersion": "v1",
+    "kind": "Secret",
+    "metadata": Object {
+      "name": "shanoir-secrets",
+      "namespace": "shanoir-ng",
+    },
+    "stringData": Object {
+      "MYSQL_DATABASE": "keycloak",
+      "MYSQL_PASSWORD": "mysql123",
+      "MYSQL_ROOT_PASSWORD": "root123",
+      "MYSQL_USER": "mysql",
+      "SHANOIR_CERTIFICATE": "base64-encoded-cert",
+      "SHANOIR_CERTIFICATE_PEM_CRT": "base64-encoded-crt",
+      "SHANOIR_CERTIFICATE_PEM_KEY": "base64-encoded-key",
+      "SHANOIR_KEYCLOAK_PASSWORD": "admin123",
+      "SHANOIR_KEYCLOAK_USER": "admin",
+      "VIP_CLIENT_SECRET": "vip-client-secret",
+    },
+  },
+  Object {
+    "apiVersion": "v1",
+    "kind": "PersistentVolumeClaim",
+    "metadata": Object {
+      "name": "keycloak-database-data-pvc",
+      "namespace": "shanoir-ng",
+    },
+    "spec": Object {
+      "accessModes": Array [
+        "ReadWriteOnce",
+      ],
+      "resources": Object {
+        "requests": Object {
+          "storage": "20Gi",
+        },
+      },
+    },
+  },
+  Object {
+    "apiVersion": "v1",
+    "kind": "PersistentVolumeClaim",
+    "metadata": Object {
+      "name": "rabbitmq-data-pvc",
+      "namespace": "shanoir-ng",
+    },
+    "spec": Object {
+      "accessModes": Array [
+        "ReadWriteOnce",
+      ],
+      "resources": Object {
+        "requests": Object {
+          "storage": "20Gi",
+        },
+      },
+    },
+  },
+  Object {
+    "apiVersion": "v1",
+    "kind": "PersistentVolumeClaim",
+    "metadata": Object {
+      "name": "database-data-pvc",
+      "namespace": "shanoir-ng",
+    },
+    "spec": Object {
+      "accessModes": Array [
+        "ReadWriteOnce",
+      ],
+      "resources": Object {
+        "requests": Object {
+          "storage": "20Gi",
+        },
+      },
+    },
+  },
+  Object {
+    "apiVersion": "v1",
+    "kind": "PersistentVolumeClaim",
+    "metadata": Object {
+      "name": "datasets-data-pvc",
+      "namespace": "shanoir-ng",
+    },
+    "spec": Object {
+      "accessModes": Array [
+        "ReadWriteOnce",
+      ],
+      "resources": Object {
+        "requests": Object {
+          "storage": "20Gi",
+        },
+      },
+    },
+  },
+  Object {
+    "apiVersion": "v1",
+    "kind": "PersistentVolumeClaim",
+    "metadata": Object {
+      "name": "extra-data-pvc",
+      "namespace": "shanoir-ng",
+    },
+    "spec": Object {
+      "accessModes": Array [
+        "ReadWriteOnce",
+      ],
+      "resources": Object {
+        "requests": Object {
+          "storage": "20Gi",
+        },
+      },
+    },
+  },
+  Object {
+    "apiVersion": "v1",
+    "kind": "PersistentVolumeClaim",
+    "metadata": Object {
+      "name": "studies-data-pvc",
+      "namespace": "shanoir-ng",
+    },
+    "spec": Object {
+      "accessModes": Array [
+        "ReadWriteOnce",
+      ],
+      "resources": Object {
+        "requests": Object {
+          "storage": "20Gi",
+        },
+      },
+    },
+  },
+  Object {
+    "apiVersion": "v1",
+    "kind": "PersistentVolumeClaim",
+    "metadata": Object {
+      "name": "dcm4chee-ldap-data-pvc",
+      "namespace": "shanoir-ng",
+    },
+    "spec": Object {
+      "accessModes": Array [
+        "ReadWriteOnce",
+      ],
+      "resources": Object {
+        "requests": Object {
+          "storage": "20Gi",
+        },
+      },
+    },
+  },
+  Object {
+    "apiVersion": "v1",
+    "kind": "PersistentVolumeClaim",
+    "metadata": Object {
+      "name": "dcm4chee-sldap-data-pvc",
+      "namespace": "shanoir-ng",
+    },
+    "spec": Object {
+      "accessModes": Array [
+        "ReadWriteOnce",
+      ],
+      "resources": Object {
+        "requests": Object {
+          "storage": "20Gi",
+        },
+      },
+    },
+  },
+  Object {
+    "apiVersion": "v1",
+    "kind": "PersistentVolumeClaim",
+    "metadata": Object {
+      "name": "dcm4chee-database-data-pvc",
+      "namespace": "shanoir-ng",
+    },
+    "spec": Object {
+      "accessModes": Array [
+        "ReadWriteOnce",
+      ],
+      "resources": Object {
+        "requests": Object {
+          "storage": "20Gi",
+        },
+      },
+    },
+  },
+  Object {
+    "apiVersion": "v1",
+    "kind": "PersistentVolumeClaim",
+    "metadata": Object {
+      "name": "dcm4chee-arc-wildfly-data-pvc",
+      "namespace": "shanoir-ng",
+    },
+    "spec": Object {
+      "accessModes": Array [
+        "ReadWriteOnce",
+      ],
+      "resources": Object {
+        "requests": Object {
+          "storage": "20Gi",
+        },
+      },
+    },
+  },
+  Object {
+    "apiVersion": "v1",
+    "kind": "PersistentVolumeClaim",
+    "metadata": Object {
+      "name": "dcm4chee-arc-storage-data-pvc",
+      "namespace": "shanoir-ng",
+    },
+    "spec": Object {
+      "accessModes": Array [
+        "ReadWriteOnce",
+      ],
+      "resources": Object {
+        "requests": Object {
+          "storage": "20Gi",
+        },
+      },
+    },
+  },
+  Object {
+    "apiVersion": "v1",
+    "kind": "PersistentVolumeClaim",
+    "metadata": Object {
+      "name": "solr-data-pvc",
+      "namespace": "shanoir-ng",
+    },
+    "spec": Object {
+      "accessModes": Array [
+        "ReadWriteOnce",
+      ],
+      "resources": Object {
+        "requests": Object {
+          "storage": "20Gi",
+        },
+      },
+    },
+  },
+  Object {
+    "apiVersion": "v1",
+    "kind": "PersistentVolumeClaim",
+    "metadata": Object {
+      "name": "certificate-share-data-pvc",
+      "namespace": "shanoir-ng",
+    },
+    "spec": Object {
+      "accessModes": Array [
+        "ReadWriteOnce",
+      ],
+      "resources": Object {
+        "requests": Object {
+          "storage": "20Gi",
+        },
+      },
+    },
+  },
+  Object {
+    "apiVersion": "v1",
+    "kind": "PersistentVolumeClaim",
+    "metadata": Object {
+      "name": "tmp-pvc",
+      "namespace": "shanoir-ng",
+    },
+    "spec": Object {
+      "accessModes": Array [
+        "ReadWriteOnce",
+      ],
+      "resources": Object {
+        "requests": Object {
+          "storage": "5Gi",
+        },
+      },
+    },
+  },
+  Object {
+    "apiVersion": "v1",
+    "kind": "PersistentVolumeClaim",
+    "metadata": Object {
+      "name": "logs-pvc",
+      "namespace": "shanoir-ng",
+    },
+    "spec": Object {
+      "accessModes": Array [
+        "ReadWriteOnce",
+      ],
+      "resources": Object {
+        "requests": Object {
+          "storage": "5Gi",
+        },
+      },
+    },
+  },
+  Object {
+    "apiVersion": "v1",
+    "kind": "PersistentVolumeClaim",
+    "metadata": Object {
+      "name": "keycloak-logs-pvc",
+      "namespace": "shanoir-ng",
+    },
+    "spec": Object {
+      "accessModes": Array [
+        "ReadWriteOnce",
+      ],
+      "resources": Object {
+        "requests": Object {
+          "storage": "5Gi",
+        },
+      },
+    },
+  },
+  Object {
+    "apiVersion": "apps/v1",
+    "kind": "Deployment",
+    "metadata": Object {
+      "name": "keycloak-database",
+      "namespace": "shanoir-ng",
+    },
+    "spec": Object {
+      "replicas": 1,
+      "selector": Object {
+        "matchLabels": Object {
+          "app": "keycloak-database",
+        },
+      },
+      "template": Object {
+        "metadata": Object {
+          "labels": Object {
+            "app": "keycloak-database",
+          },
+        },
+        "spec": Object {
+          "containers": Array [
+            Object {
+              "env": Array [
+                Object {
+                  "name": "MYSQL_DATABASE",
+                  "valueFrom": Object {
+                    "secretKeyRef": Object {
+                      "key": "MYSQL_DATABASE",
+                      "name": "shanoir-secrets",
+                    },
+                  },
+                },
+              ],
+              "image": "ghcr.io/fli-iam/shanoir-ng/keycloak-database:NG_v2.5.1",
+              "name": "keycloak-database",
+              "ports": Array [
+                Object {
+                  "containerPort": 3306,
+                },
+              ],
+              "volumeMounts": Array [
+                Object {
+                  "mountPath": "/var/lib/mysql",
+                  "name": "keycloak-database-data",
+                },
+              ],
+            },
+          ],
+          "volumes": Array [
+            Object {
+              "name": "keycloak-database-data",
+              "persistentVolumeClaim": Object {
+                "claimName": "keycloak-database-data-pvc",
+              },
+            },
+          ],
+        },
+      },
+    },
+  },
+  Object {
+    "apiVersion": "v1",
+    "kind": "Service",
+    "metadata": Object {
+      "name": "keycloak-database",
+      "namespace": "shanoir-ng",
+    },
+    "spec": Object {
+      "ports": Array [
+        Object {
+          "port": 3306,
+          "targetPort": 3306,
+        },
+      ],
+      "selector": Object {
+        "app": "keycloak-database",
+      },
+    },
+  },
+  Object {
+    "apiVersion": "apps/v1",
+    "kind": "Deployment",
+    "metadata": Object {
+      "name": "keycloak",
+      "namespace": "shanoir-ng",
+    },
+    "spec": Object {
+      "replicas": 1,
+      "selector": Object {
+        "matchLabels": Object {
+          "app": "keycloak",
+        },
+      },
+      "template": Object {
+        "metadata": Object {
+          "labels": Object {
+            "app": "keycloak",
+          },
+        },
+        "spec": Object {
+          "containers": Array [
+            Object {
+              "env": Array [
+                Object {
+                  "name": "SHANOIR_PREFIX",
+                  "valueFrom": Object {
+                    "configMapKeyRef": Object {
+                      "key": "SHANOIR_PREFIX",
+                      "name": "shanoir-config",
+                    },
+                  },
+                },
+                Object {
+                  "name": "SHANOIR_URL_SCHEME",
+                  "valueFrom": Object {
+                    "configMapKeyRef": Object {
+                      "key": "SHANOIR_URL_SCHEME",
+                      "name": "shanoir-config",
+                    },
+                  },
+                },
+                Object {
+                  "name": "SHANOIR_URL_HOST",
+                  "valueFrom": Object {
+                    "configMapKeyRef": Object {
+                      "key": "SHANOIR_URL_HOST",
+                      "name": "shanoir-config",
+                    },
+                  },
+                },
+                Object {
+                  "name": "SHANOIR_MIGRATION",
+                  "valueFrom": Object {
+                    "configMapKeyRef": Object {
+                      "key": "SHANOIR_MIGRATION",
+                      "name": "shanoir-config",
+                    },
+                  },
+                },
+                Object {
+                  "name": "SHANOIR_ADMIN_EMAIL",
+                  "valueFrom": Object {
+                    "configMapKeyRef": Object {
+                      "key": "SHANOIR_ADMIN_EMAIL",
+                      "name": "shanoir-config",
+                    },
+                  },
+                },
+                Object {
+                  "name": "SHANOIR_ADMIN_NAME",
+                  "valueFrom": Object {
+                    "configMapKeyRef": Object {
+                      "key": "SHANOIR_ADMIN_NAME",
+                      "name": "shanoir-config",
+                    },
+                  },
+                },
+                Object {
+                  "name": "SHANOIR_KEYCLOAK_USER",
+                  "valueFrom": Object {
+                    "secretKeyRef": Object {
+                      "key": "SHANOIR_KEYCLOAK_USER",
+                      "name": "shanoir-secrets",
+                    },
+                  },
+                },
+                Object {
+                  "name": "SHANOIR_KEYCLOAK_PASSWORD",
+                  "valueFrom": Object {
+                    "secretKeyRef": Object {
+                      "key": "SHANOIR_KEYCLOAK_PASSWORD",
+                      "name": "shanoir-secrets",
+                    },
+                  },
+                },
+              ],
+              "image": "ghcr.io/fli-iam/shanoir-ng/keycloak:NG_v2.5.1",
+              "name": "keycloak",
+              "ports": Array [
+                Object {
+                  "containerPort": 8080,
+                },
+              ],
+              "volumeMounts": Array [
+                Object {
+                  "mountPath": "/opt/keycloak/data/log",
+                  "name": "keycloak-logs",
+                },
+              ],
+            },
+          ],
+          "volumes": Array [
+            Object {
+              "name": "keycloak-logs",
+              "persistentVolumeClaim": Object {
+                "claimName": "keycloak-logs-pvc",
+              },
+            },
+          ],
+        },
+      },
+    },
+  },
+  Object {
+    "apiVersion": "v1",
+    "kind": "Service",
+    "metadata": Object {
+      "name": "keycloak",
+      "namespace": "shanoir-ng",
+    },
+    "spec": Object {
+      "ports": Array [
+        Object {
+          "port": 8080,
+          "targetPort": 8080,
+        },
+      ],
+      "selector": Object {
+        "app": "keycloak",
+      },
+    },
+  },
+  Object {
+    "apiVersion": "apps/v1",
+    "kind": "Deployment",
+    "metadata": Object {
+      "name": "rabbitmq",
+      "namespace": "shanoir-ng",
+    },
+    "spec": Object {
+      "replicas": 1,
+      "selector": Object {
+        "matchLabels": Object {
+          "app": "rabbitmq",
+        },
+      },
+      "template": Object {
+        "metadata": Object {
+          "labels": Object {
+            "app": "rabbitmq",
+          },
+        },
+        "spec": Object {
+          "containers": Array [
+            Object {
+              "image": "rabbitmq:3.10.7",
+              "name": "rabbitmq",
+              "ports": Array [
+                Object {
+                  "containerPort": 5672,
+                },
+                Object {
+                  "containerPort": 15672,
+                },
+              ],
+              "volumeMounts": Array [
+                Object {
+                  "mountPath": "/var/lib/rabbitmq/mnesia/rabbitmq",
+                  "name": "rabbitmq-data",
+                },
+              ],
+            },
+          ],
+          "volumes": Array [
+            Object {
+              "name": "rabbitmq-data",
+              "persistentVolumeClaim": Object {
+                "claimName": "rabbitmq-data-pvc",
+              },
+            },
+          ],
+        },
+      },
+    },
+  },
+  Object {
+    "apiVersion": "v1",
+    "kind": "Service",
+    "metadata": Object {
+      "name": "rabbitmq",
+      "namespace": "shanoir-ng",
+    },
+    "spec": Object {
+      "ports": Array [
+        Object {
+          "name": "amqp",
+          "port": 5672,
+          "targetPort": 5672,
+        },
+        Object {
+          "name": "management",
+          "port": 15672,
+          "targetPort": 15672,
+        },
+      ],
+      "selector": Object {
+        "app": "rabbitmq",
+      },
+    },
+  },
+  Object {
+    "apiVersion": "apps/v1",
+    "kind": "Deployment",
+    "metadata": Object {
+      "name": "database",
+      "namespace": "shanoir-ng",
+    },
+    "spec": Object {
+      "replicas": 1,
+      "selector": Object {
+        "matchLabels": Object {
+          "app": "database",
+        },
+      },
+      "template": Object {
+        "metadata": Object {
+          "labels": Object {
+            "app": "database",
+          },
+        },
+        "spec": Object {
+          "containers": Array [
+            Object {
+              "args": Array [
+                "--max_allowed_packet",
+                "20000000",
+              ],
+              "env": Array [
+                Object {
+                  "name": "SHANOIR_MIGRATION",
+                  "valueFrom": Object {
+                    "configMapKeyRef": Object {
+                      "key": "SHANOIR_MIGRATION",
+                      "name": "shanoir-config",
+                    },
+                  },
+                },
+              ],
+              "image": "ghcr.io/fli-iam/shanoir-ng/database:NG_v2.5.1",
+              "name": "database",
+              "ports": Array [
+                Object {
+                  "containerPort": 3306,
+                },
+              ],
+              "volumeMounts": Array [
+                Object {
+                  "mountPath": "/var/lib/mysql",
+                  "name": "database-data",
+                },
+              ],
+            },
+          ],
+          "volumes": Array [
+            Object {
+              "name": "database-data",
+              "persistentVolumeClaim": Object {
+                "claimName": "database-data-pvc",
+              },
+            },
+          ],
+        },
+      },
+    },
+  },
+  Object {
+    "apiVersion": "v1",
+    "kind": "Service",
+    "metadata": Object {
+      "name": "database",
+      "namespace": "shanoir-ng",
+    },
+    "spec": Object {
+      "ports": Array [
+        Object {
+          "port": 3306,
+          "targetPort": 3306,
+        },
+      ],
+      "selector": Object {
+        "app": "database",
+      },
+    },
+  },
+  Object {
+    "apiVersion": "apps/v1",
+    "kind": "Deployment",
+    "metadata": Object {
+      "name": "users",
+      "namespace": "shanoir-ng",
+    },
+    "spec": Object {
+      "replicas": 1,
+      "selector": Object {
+        "matchLabels": Object {
+          "app": "users",
+        },
+      },
+      "template": Object {
+        "metadata": Object {
+          "labels": Object {
+            "app": "users",
+          },
+        },
+        "spec": Object {
+          "containers": Array [
+            Object {
+              "env": Array [
+                Object {
+                  "name": "SHANOIR_PREFIX",
+                  "valueFrom": Object {
+                    "configMapKeyRef": Object {
+                      "key": "SHANOIR_PREFIX",
+                      "name": "shanoir-config",
+                    },
+                  },
+                },
+                Object {
+                  "name": "SHANOIR_URL_SCHEME",
+                  "valueFrom": Object {
+                    "configMapKeyRef": Object {
+                      "key": "SHANOIR_URL_SCHEME",
+                      "name": "shanoir-config",
+                    },
+                  },
+                },
+                Object {
+                  "name": "SHANOIR_URL_HOST",
+                  "valueFrom": Object {
+                    "configMapKeyRef": Object {
+                      "key": "SHANOIR_URL_HOST",
+                      "name": "shanoir-config",
+                    },
+                  },
+                },
+                Object {
+                  "name": "SHANOIR_MIGRATION",
+                  "valueFrom": Object {
+                    "configMapKeyRef": Object {
+                      "key": "SHANOIR_MIGRATION",
+                      "name": "shanoir-config",
+                    },
+                  },
+                },
+                Object {
+                  "name": "SHANOIR_SMTP_HOST",
+                  "valueFrom": Object {
+                    "configMapKeyRef": Object {
+                      "key": "SHANOIR_SMTP_HOST",
+                      "name": "shanoir-config",
+                    },
+                  },
+                },
+                Object {
+                  "name": "SHANOIR_ADMIN_EMAIL",
+                  "valueFrom": Object {
+                    "configMapKeyRef": Object {
+                      "key": "SHANOIR_ADMIN_EMAIL",
+                      "name": "shanoir-config",
+                    },
+                  },
+                },
+                Object {
+                  "name": "SHANOIR_KEYCLOAK_USER",
+                  "valueFrom": Object {
+                    "secretKeyRef": Object {
+                      "key": "SHANOIR_KEYCLOAK_USER",
+                      "name": "shanoir-secrets",
+                    },
+                  },
+                },
+                Object {
+                  "name": "SHANOIR_KEYCLOAK_PASSWORD",
+                  "valueFrom": Object {
+                    "secretKeyRef": Object {
+                      "key": "SHANOIR_KEYCLOAK_PASSWORD",
+                      "name": "shanoir-secrets",
+                    },
+                  },
+                },
+                Object {
+                  "name": "VIP_SERVICE_EMAIL",
+                  "valueFrom": Object {
+                    "configMapKeyRef": Object {
+                      "key": "VIP_SERVICE_EMAIL",
+                      "name": "shanoir-config",
+                    },
+                  },
+                },
+              ],
+              "image": "ghcr.io/fli-iam/shanoir-ng/users:NG_v2.5.1",
+              "name": "users",
+              "ports": Array [
+                Object {
+                  "containerPort": 9901,
+                },
+                Object {
+                  "containerPort": 9911,
+                },
+              ],
+              "volumeMounts": Array [
+                Object {
+                  "mountPath": "/var/log/shanoir-ng-logs",
+                  "name": "logs",
+                },
+                Object {
+                  "mountPath": "/etc/ssl/certs/java",
+                  "name": "certificate-share-data",
+                  "readOnly": true,
+                },
+              ],
+            },
+          ],
+          "volumes": Array [
+            Object {
+              "name": "logs",
+              "persistentVolumeClaim": Object {
+                "claimName": "logs-pvc",
+              },
+            },
+            Object {
+              "name": "certificate-share-data",
+              "persistentVolumeClaim": Object {
+                "claimName": "certificate-share-data-pvc",
+              },
+            },
+          ],
+        },
+      },
+    },
+  },
+  Object {
+    "apiVersion": "v1",
+    "kind": "Service",
+    "metadata": Object {
+      "name": "users",
+      "namespace": "shanoir-ng",
+    },
+    "spec": Object {
+      "ports": Array [
+        Object {
+          "name": "http",
+          "port": 9901,
+          "targetPort": 9901,
+        },
+        Object {
+          "name": "debug",
+          "port": 9911,
+          "targetPort": 9911,
+        },
+      ],
+      "selector": Object {
+        "app": "users",
+      },
+    },
+  },
+  Object {
+    "apiVersion": "apps/v1",
+    "kind": "Deployment",
+    "metadata": Object {
+      "name": "studies",
+      "namespace": "shanoir-ng",
+    },
+    "spec": Object {
+      "replicas": 1,
+      "selector": Object {
+        "matchLabels": Object {
+          "app": "studies",
+        },
+      },
+      "template": Object {
+        "metadata": Object {
+          "labels": Object {
+            "app": "studies",
+          },
+        },
+        "spec": Object {
+          "containers": Array [
+            Object {
+              "env": Array [
+                Object {
+                  "name": "SHANOIR_PREFIX",
+                  "valueFrom": Object {
+                    "configMapKeyRef": Object {
+                      "key": "SHANOIR_PREFIX",
+                      "name": "shanoir-config",
+                    },
+                  },
+                },
+                Object {
+                  "name": "SHANOIR_URL_SCHEME",
+                  "valueFrom": Object {
+                    "configMapKeyRef": Object {
+                      "key": "SHANOIR_URL_SCHEME",
+                      "name": "shanoir-config",
+                    },
+                  },
+                },
+                Object {
+                  "name": "SHANOIR_URL_HOST",
+                  "valueFrom": Object {
+                    "configMapKeyRef": Object {
+                      "key": "SHANOIR_URL_HOST",
+                      "name": "shanoir-config",
+                    },
+                  },
+                },
+                Object {
+                  "name": "SHANOIR_MIGRATION",
+                  "valueFrom": Object {
+                    "configMapKeyRef": Object {
+                      "key": "SHANOIR_MIGRATION",
+                      "name": "shanoir-config",
+                    },
+                  },
+                },
+              ],
+              "image": "ghcr.io/fli-iam/shanoir-ng/studies:NG_v2.5.1",
+              "name": "studies",
+              "ports": Array [
+                Object {
+                  "containerPort": 9902,
+                },
+                Object {
+                  "containerPort": 9912,
+                },
+              ],
+              "volumeMounts": Array [
+                Object {
+                  "mountPath": "/var/log/shanoir-ng-logs",
+                  "name": "logs",
+                },
+                Object {
+                  "mountPath": "/etc/ssl/certs/java",
+                  "name": "certificate-share-data",
+                  "readOnly": true,
+                },
+                Object {
+                  "mountPath": "/var/studies-data",
+                  "name": "studies-data",
+                },
+                Object {
+                  "mountPath": "/tmp",
+                  "name": "tmp",
+                },
+              ],
+            },
+          ],
+          "volumes": Array [
+            Object {
+              "name": "logs",
+              "persistentVolumeClaim": Object {
+                "claimName": "logs-pvc",
+              },
+            },
+            Object {
+              "name": "certificate-share-data",
+              "persistentVolumeClaim": Object {
+                "claimName": "certificate-share-data-pvc",
+              },
+            },
+            Object {
+              "name": "studies-data",
+              "persistentVolumeClaim": Object {
+                "claimName": "studies-data-pvc",
+              },
+            },
+            Object {
+              "name": "tmp",
+              "persistentVolumeClaim": Object {
+                "claimName": "tmp-pvc",
+              },
+            },
+          ],
+        },
+      },
+    },
+  },
+  Object {
+    "apiVersion": "v1",
+    "kind": "Service",
+    "metadata": Object {
+      "name": "studies",
+      "namespace": "shanoir-ng",
+    },
+    "spec": Object {
+      "ports": Array [
+        Object {
+          "name": "http",
+          "port": 9902,
+          "targetPort": 9902,
+        },
+        Object {
+          "name": "debug",
+          "port": 9912,
+          "targetPort": 9912,
+        },
+      ],
+      "selector": Object {
+        "app": "studies",
+      },
+    },
+  },
+  Object {
+    "apiVersion": "apps/v1",
+    "kind": "Deployment",
+    "metadata": Object {
+      "name": "import",
+      "namespace": "shanoir-ng",
+    },
+    "spec": Object {
+      "replicas": 1,
+      "selector": Object {
+        "matchLabels": Object {
+          "app": "import",
+        },
+      },
+      "template": Object {
+        "metadata": Object {
+          "labels": Object {
+            "app": "import",
+          },
+        },
+        "spec": Object {
+          "containers": Array [
+            Object {
+              "env": Array [
+                Object {
+                  "name": "SHANOIR_PREFIX",
+                  "valueFrom": Object {
+                    "configMapKeyRef": Object {
+                      "key": "SHANOIR_PREFIX",
+                      "name": "shanoir-config",
+                    },
+                  },
+                },
+                Object {
+                  "name": "SHANOIR_URL_SCHEME",
+                  "valueFrom": Object {
+                    "configMapKeyRef": Object {
+                      "key": "SHANOIR_URL_SCHEME",
+                      "name": "shanoir-config",
+                    },
+                  },
+                },
+                Object {
+                  "name": "SHANOIR_URL_HOST",
+                  "valueFrom": Object {
+                    "configMapKeyRef": Object {
+                      "key": "SHANOIR_URL_HOST",
+                      "name": "shanoir-config",
+                    },
+                  },
+                },
+                Object {
+                  "name": "SHANOIR_MIGRATION",
+                  "valueFrom": Object {
+                    "configMapKeyRef": Object {
+                      "key": "SHANOIR_MIGRATION",
+                      "name": "shanoir-config",
+                    },
+                  },
+                },
+              ],
+              "image": "ghcr.io/fli-iam/shanoir-ng/import:NG_v2.5.1",
+              "name": "import",
+              "ports": Array [
+                Object {
+                  "containerPort": 9903,
+                },
+                Object {
+                  "containerPort": 9913,
+                },
+              ],
+              "volumeMounts": Array [
+                Object {
+                  "mountPath": "/var/log/shanoir-ng-logs",
+                  "name": "logs",
+                },
+                Object {
+                  "mountPath": "/etc/ssl/certs/java",
+                  "name": "certificate-share-data",
+                  "readOnly": true,
+                },
+                Object {
+                  "mountPath": "/tmp",
+                  "name": "tmp",
+                },
+              ],
+            },
+          ],
+          "volumes": Array [
+            Object {
+              "name": "logs",
+              "persistentVolumeClaim": Object {
+                "claimName": "logs-pvc",
+              },
+            },
+            Object {
+              "name": "certificate-share-data",
+              "persistentVolumeClaim": Object {
+                "claimName": "certificate-share-data-pvc",
+              },
+            },
+            Object {
+              "name": "tmp",
+              "persistentVolumeClaim": Object {
+                "claimName": "tmp-pvc",
+              },
+            },
+          ],
+        },
+      },
+    },
+  },
+  Object {
+    "apiVersion": "v1",
+    "kind": "Service",
+    "metadata": Object {
+      "name": "import",
+      "namespace": "shanoir-ng",
+    },
+    "spec": Object {
+      "ports": Array [
+        Object {
+          "name": "http",
+          "port": 9903,
+          "targetPort": 9903,
+        },
+        Object {
+          "name": "debug",
+          "port": 9913,
+          "targetPort": 9913,
+        },
+      ],
+      "selector": Object {
+        "app": "import",
+      },
+    },
+  },
+  Object {
+    "apiVersion": "apps/v1",
+    "kind": "Deployment",
+    "metadata": Object {
+      "name": "datasets",
+      "namespace": "shanoir-ng",
+    },
+    "spec": Object {
+      "replicas": 1,
+      "selector": Object {
+        "matchLabels": Object {
+          "app": "datasets",
+        },
+      },
+      "template": Object {
+        "metadata": Object {
+          "labels": Object {
+            "app": "datasets",
+          },
+        },
+        "spec": Object {
+          "containers": Array [
+            Object {
+              "env": Array [
+                Object {
+                  "name": "SHANOIR_PREFIX",
+                  "valueFrom": Object {
+                    "configMapKeyRef": Object {
+                      "key": "SHANOIR_PREFIX",
+                      "name": "shanoir-config",
+                    },
+                  },
+                },
+                Object {
+                  "name": "SHANOIR_URL_SCHEME",
+                  "valueFrom": Object {
+                    "configMapKeyRef": Object {
+                      "key": "SHANOIR_URL_SCHEME",
+                      "name": "shanoir-config",
+                    },
+                  },
+                },
+                Object {
+                  "name": "SHANOIR_URL_HOST",
+                  "valueFrom": Object {
+                    "configMapKeyRef": Object {
+                      "key": "SHANOIR_URL_HOST",
+                      "name": "shanoir-config",
+                    },
+                  },
+                },
+                Object {
+                  "name": "SHANOIR_MIGRATION",
+                  "valueFrom": Object {
+                    "configMapKeyRef": Object {
+                      "key": "SHANOIR_MIGRATION",
+                      "name": "shanoir-config",
+                    },
+                  },
+                },
+                Object {
+                  "name": "SHANOIR_VIEWER_OHIF_URL_SCHEME",
+                  "valueFrom": Object {
+                    "configMapKeyRef": Object {
+                      "key": "SHANOIR_VIEWER_OHIF_URL_SCHEME",
+                      "name": "shanoir-config",
+                    },
+                  },
+                },
+                Object {
+                  "name": "SHANOIR_VIEWER_OHIF_URL_HOST",
+                  "valueFrom": Object {
+                    "configMapKeyRef": Object {
+                      "key": "SHANOIR_VIEWER_OHIF_URL_HOST",
+                      "name": "shanoir-config",
+                    },
+                  },
+                },
+                Object {
+                  "name": "VIP_URL_SCHEME",
+                  "valueFrom": Object {
+                    "configMapKeyRef": Object {
+                      "key": "VIP_URL_SCHEME",
+                      "name": "shanoir-config",
+                    },
+                  },
+                },
+                Object {
+                  "name": "VIP_URL_HOST",
+                  "valueFrom": Object {
+                    "configMapKeyRef": Object {
+                      "key": "VIP_URL_HOST",
+                      "name": "shanoir-config",
+                    },
+                  },
+                },
+                Object {
+                  "name": "VIP_CLIENT_SECRET",
+                  "valueFrom": Object {
+                    "secretKeyRef": Object {
+                      "key": "VIP_CLIENT_SECRET",
+                      "name": "shanoir-secrets",
+                    },
+                  },
+                },
+              ],
+              "image": "ghcr.io/fli-iam/shanoir-ng/datasets:NG_v2.5.1",
+              "name": "datasets",
+              "ports": Array [
+                Object {
+                  "containerPort": 9904,
+                },
+                Object {
+                  "containerPort": 9914,
+                },
+              ],
+              "volumeMounts": Array [
+                Object {
+                  "mountPath": "/var/log/shanoir-ng-logs",
+                  "name": "logs",
+                },
+                Object {
+                  "mountPath": "/etc/ssl/certs/java",
+                  "name": "certificate-share-data",
+                  "readOnly": true,
+                },
+                Object {
+                  "mountPath": "/tmp",
+                  "name": "tmp",
+                },
+                Object {
+                  "mountPath": "/var/datasets-data",
+                  "name": "datasets-data",
+                },
+              ],
+            },
+          ],
+          "volumes": Array [
+            Object {
+              "name": "logs",
+              "persistentVolumeClaim": Object {
+                "claimName": "logs-pvc",
+              },
+            },
+            Object {
+              "name": "certificate-share-data",
+              "persistentVolumeClaim": Object {
+                "claimName": "certificate-share-data-pvc",
+              },
+            },
+            Object {
+              "name": "tmp",
+              "persistentVolumeClaim": Object {
+                "claimName": "tmp-pvc",
+              },
+            },
+            Object {
+              "name": "datasets-data",
+              "persistentVolumeClaim": Object {
+                "claimName": "datasets-data-pvc",
+              },
+            },
+          ],
+        },
+      },
+    },
+  },
+  Object {
+    "apiVersion": "v1",
+    "kind": "Service",
+    "metadata": Object {
+      "name": "datasets",
+      "namespace": "shanoir-ng",
+    },
+    "spec": Object {
+      "ports": Array [
+        Object {
+          "name": "http",
+          "port": 9904,
+          "targetPort": 9904,
+        },
+        Object {
+          "name": "debug",
+          "port": 9914,
+          "targetPort": 9914,
+        },
+      ],
+      "selector": Object {
+        "app": "datasets",
+      },
+    },
+  },
+  Object {
+    "apiVersion": "apps/v1",
+    "kind": "Deployment",
+    "metadata": Object {
+      "name": "preclinical",
+      "namespace": "shanoir-ng",
+    },
+    "spec": Object {
+      "replicas": 1,
+      "selector": Object {
+        "matchLabels": Object {
+          "app": "preclinical",
+        },
+      },
+      "template": Object {
+        "metadata": Object {
+          "labels": Object {
+            "app": "preclinical",
+          },
+        },
+        "spec": Object {
+          "containers": Array [
+            Object {
+              "env": Array [
+                Object {
+                  "name": "SHANOIR_PREFIX",
+                  "valueFrom": Object {
+                    "configMapKeyRef": Object {
+                      "key": "SHANOIR_PREFIX",
+                      "name": "shanoir-config",
+                    },
+                  },
+                },
+                Object {
+                  "name": "SHANOIR_URL_SCHEME",
+                  "valueFrom": Object {
+                    "configMapKeyRef": Object {
+                      "key": "SHANOIR_URL_SCHEME",
+                      "name": "shanoir-config",
+                    },
+                  },
+                },
+                Object {
+                  "name": "SHANOIR_URL_HOST",
+                  "valueFrom": Object {
+                    "configMapKeyRef": Object {
+                      "key": "SHANOIR_URL_HOST",
+                      "name": "shanoir-config",
+                    },
+                  },
+                },
+                Object {
+                  "name": "SHANOIR_MIGRATION",
+                  "valueFrom": Object {
+                    "configMapKeyRef": Object {
+                      "key": "SHANOIR_MIGRATION",
+                      "name": "shanoir-config",
+                    },
+                  },
+                },
+              ],
+              "image": "ghcr.io/fli-iam/shanoir-ng/preclinical:NG_v2.5.1",
+              "name": "preclinical",
+              "ports": Array [
+                Object {
+                  "containerPort": 9905,
+                },
+                Object {
+                  "containerPort": 9915,
+                },
+              ],
+              "volumeMounts": Array [
+                Object {
+                  "mountPath": "/var/log/shanoir-ng-logs",
+                  "name": "logs",
+                },
+                Object {
+                  "mountPath": "/etc/ssl/certs/java",
+                  "name": "certificate-share-data",
+                  "readOnly": true,
+                },
+                Object {
+                  "mountPath": "/tmp",
+                  "name": "tmp",
+                },
+                Object {
+                  "mountPath": "/var/extra-data",
+                  "name": "extra-data",
+                },
+              ],
+            },
+          ],
+          "volumes": Array [
+            Object {
+              "name": "logs",
+              "persistentVolumeClaim": Object {
+                "claimName": "logs-pvc",
+              },
+            },
+            Object {
+              "name": "certificate-share-data",
+              "persistentVolumeClaim": Object {
+                "claimName": "certificate-share-data-pvc",
+              },
+            },
+            Object {
+              "name": "tmp",
+              "persistentVolumeClaim": Object {
+                "claimName": "tmp-pvc",
+              },
+            },
+            Object {
+              "name": "extra-data",
+              "persistentVolumeClaim": Object {
+                "claimName": "extra-data-pvc",
+              },
+            },
+          ],
+        },
+      },
+    },
+  },
+  Object {
+    "apiVersion": "v1",
+    "kind": "Service",
+    "metadata": Object {
+      "name": "preclinical",
+      "namespace": "shanoir-ng",
+    },
+    "spec": Object {
+      "ports": Array [
+        Object {
+          "name": "http",
+          "port": 9905,
+          "targetPort": 9905,
+        },
+        Object {
+          "name": "debug",
+          "port": 9915,
+          "targetPort": 9915,
+        },
+      ],
+      "selector": Object {
+        "app": "preclinical",
+      },
+    },
+  },
+  Object {
+    "apiVersion": "apps/v1",
+    "kind": "Deployment",
+    "metadata": Object {
+      "name": "nifti-conversion",
+      "namespace": "shanoir-ng",
+    },
+    "spec": Object {
+      "replicas": 1,
+      "selector": Object {
+        "matchLabels": Object {
+          "app": "nifti-conversion",
+        },
+      },
+      "template": Object {
+        "metadata": Object {
+          "labels": Object {
+            "app": "nifti-conversion",
+          },
+        },
+        "spec": Object {
+          "containers": Array [
+            Object {
+              "env": Array [
+                Object {
+                  "name": "SHANOIR_PREFIX",
+                  "valueFrom": Object {
+                    "configMapKeyRef": Object {
+                      "key": "SHANOIR_PREFIX",
+                      "name": "shanoir-config",
+                    },
+                  },
+                },
+                Object {
+                  "name": "SHANOIR_URL_SCHEME",
+                  "valueFrom": Object {
+                    "configMapKeyRef": Object {
+                      "key": "SHANOIR_URL_SCHEME",
+                      "name": "shanoir-config",
+                    },
+                  },
+                },
+                Object {
+                  "name": "SHANOIR_URL_HOST",
+                  "valueFrom": Object {
+                    "configMapKeyRef": Object {
+                      "key": "SHANOIR_URL_HOST",
+                      "name": "shanoir-config",
+                    },
+                  },
+                },
+                Object {
+                  "name": "SHANOIR_MIGRATION",
+                  "valueFrom": Object {
+                    "configMapKeyRef": Object {
+                      "key": "SHANOIR_MIGRATION",
+                      "name": "shanoir-config",
+                    },
+                  },
+                },
+              ],
+              "image": "ghcr.io/fli-iam/shanoir-ng/nifti-conversion:NG_v2.5.1",
+              "name": "nifti-conversion",
+              "volumeMounts": Array [
+                Object {
+                  "mountPath": "/var/log/shanoir-ng-logs",
+                  "name": "logs",
+                },
+                Object {
+                  "mountPath": "/var/datasets-data",
+                  "name": "datasets-data",
+                },
+                Object {
+                  "mountPath": "/tmp",
+                  "name": "tmp",
+                },
+              ],
+            },
+          ],
+          "volumes": Array [
+            Object {
+              "name": "logs",
+              "persistentVolumeClaim": Object {
+                "claimName": "logs-pvc",
+              },
+            },
+            Object {
+              "name": "datasets-data",
+              "persistentVolumeClaim": Object {
+                "claimName": "datasets-data-pvc",
+              },
+            },
+            Object {
+              "name": "tmp",
+              "persistentVolumeClaim": Object {
+                "claimName": "tmp-pvc",
+              },
+            },
+          ],
+        },
+      },
+    },
+  },
+  Object {
+    "apiVersion": "apps/v1",
+    "kind": "Deployment",
+    "metadata": Object {
+      "name": "solr",
+      "namespace": "shanoir-ng",
+    },
+    "spec": Object {
+      "replicas": 1,
+      "selector": Object {
+        "matchLabels": Object {
+          "app": "solr",
+        },
+      },
+      "template": Object {
+        "metadata": Object {
+          "labels": Object {
+            "app": "solr",
+          },
+        },
+        "spec": Object {
+          "containers": Array [
+            Object {
+              "env": Array [
+                Object {
+                  "name": "SOLR_LOG_LEVEL",
+                  "value": "SEVERE",
+                },
+              ],
+              "image": "ghcr.io/fli-iam/shanoir-ng/solr:NG_v2.5.1",
+              "name": "solr",
+              "ports": Array [
+                Object {
+                  "containerPort": 8983,
+                },
+              ],
+              "volumeMounts": Array [
+                Object {
+                  "mountPath": "/var/solr",
+                  "name": "solr-data",
+                },
+              ],
+            },
+          ],
+          "volumes": Array [
+            Object {
+              "name": "solr-data",
+              "persistentVolumeClaim": Object {
+                "claimName": "solr-data-pvc",
+              },
+            },
+          ],
+        },
+      },
+    },
+  },
+  Object {
+    "apiVersion": "v1",
+    "kind": "Service",
+    "metadata": Object {
+      "name": "solr",
+      "namespace": "shanoir-ng",
+    },
+    "spec": Object {
+      "ports": Array [
+        Object {
+          "port": 8983,
+          "targetPort": 8983,
+        },
+      ],
+      "selector": Object {
+        "app": "solr",
+      },
+    },
+  },
+  Object {
+    "apiVersion": "apps/v1",
+    "kind": "Deployment",
+    "metadata": Object {
+      "name": "ldap",
+      "namespace": "shanoir-ng",
+    },
+    "spec": Object {
+      "replicas": 1,
+      "selector": Object {
+        "matchLabels": Object {
+          "app": "ldap",
+        },
+      },
+      "template": Object {
+        "metadata": Object {
+          "labels": Object {
+            "app": "ldap",
+          },
+        },
+        "spec": Object {
+          "containers": Array [
+            Object {
+              "image": "dcm4che/slapd-dcm4chee:2.6.2-27.0",
+              "name": "ldap",
+              "ports": Array [
+                Object {
+                  "containerPort": 389,
+                },
+              ],
+              "volumeMounts": Array [
+                Object {
+                  "mountPath": "/var/lib/openldap/openldap-data",
+                  "name": "dcm4chee-ldap-data",
+                },
+                Object {
+                  "mountPath": "/etc/openldap/slapd.d",
+                  "name": "dcm4chee-sldap-data",
+                },
+              ],
+            },
+          ],
+          "volumes": Array [
+            Object {
+              "name": "dcm4chee-ldap-data",
+              "persistentVolumeClaim": Object {
+                "claimName": "dcm4chee-ldap-data-pvc",
+              },
+            },
+            Object {
+              "name": "dcm4chee-sldap-data",
+              "persistentVolumeClaim": Object {
+                "claimName": "dcm4chee-sldap-data-pvc",
+              },
+            },
+          ],
+        },
+      },
+    },
+  },
+  Object {
+    "apiVersion": "v1",
+    "kind": "Service",
+    "metadata": Object {
+      "name": "ldap",
+      "namespace": "shanoir-ng",
+    },
+    "spec": Object {
+      "ports": Array [
+        Object {
+          "port": 389,
+          "targetPort": 389,
+        },
+      ],
+      "selector": Object {
+        "app": "ldap",
+      },
+    },
+  },
+  Object {
+    "apiVersion": "apps/v1",
+    "kind": "Deployment",
+    "metadata": Object {
+      "name": "dcm4chee-database",
+      "namespace": "shanoir-ng",
+    },
+    "spec": Object {
+      "replicas": 1,
+      "selector": Object {
+        "matchLabels": Object {
+          "app": "dcm4chee-database",
+        },
+      },
+      "template": Object {
+        "metadata": Object {
+          "labels": Object {
+            "app": "dcm4chee-database",
+          },
+        },
+        "spec": Object {
+          "containers": Array [
+            Object {
+              "image": "dcm4che/postgres-dcm4chee:14.4-27",
+              "name": "dcm4chee-database",
+              "ports": Array [
+                Object {
+                  "containerPort": 5432,
+                },
+              ],
+              "volumeMounts": Array [
+                Object {
+                  "mountPath": "/var/lib/postgresql/data",
+                  "name": "dcm4chee-database-data",
+                },
+              ],
+            },
+          ],
+          "volumes": Array [
+            Object {
+              "name": "dcm4chee-database-data",
+              "persistentVolumeClaim": Object {
+                "claimName": "dcm4chee-database-data-pvc",
+              },
+            },
+          ],
+        },
+      },
+    },
+  },
+  Object {
+    "apiVersion": "v1",
+    "kind": "Service",
+    "metadata": Object {
+      "name": "dcm4chee-database",
+      "namespace": "shanoir-ng",
+    },
+    "spec": Object {
+      "ports": Array [
+        Object {
+          "port": 5432,
+          "targetPort": 5432,
+        },
+      ],
+      "selector": Object {
+        "app": "dcm4chee-database",
+      },
+    },
+  },
+  Object {
+    "apiVersion": "apps/v1",
+    "kind": "Deployment",
+    "metadata": Object {
+      "name": "dcm4chee-arc",
+      "namespace": "shanoir-ng",
+    },
+    "spec": Object {
+      "replicas": 1,
+      "selector": Object {
+        "matchLabels": Object {
+          "app": "dcm4chee-arc",
+        },
+      },
+      "template": Object {
+        "metadata": Object {
+          "labels": Object {
+            "app": "dcm4chee-arc",
+          },
+        },
+        "spec": Object {
+          "containers": Array [
+            Object {
+              "env": Array [
+                Object {
+                  "name": "POSTGRES_HOST",
+                  "value": "dcm4chee-database",
+                },
+                Object {
+                  "name": "WILDFLY_CHOWN",
+                  "value": "/storage",
+                },
+                Object {
+                  "name": "WILDFLY_WAIT_FOR",
+                  "value": "ldap:389 dcm4chee-database:5432",
+                },
+              ],
+              "image": "dcm4che/dcm4chee-arc-psql:5.27.0",
+              "name": "dcm4chee-arc",
+              "ports": Array [
+                Object {
+                  "containerPort": 8081,
+                },
+                Object {
+                  "containerPort": 8443,
+                },
+                Object {
+                  "containerPort": 9990,
+                },
+                Object {
+                  "containerPort": 11112,
+                },
+                Object {
+                  "containerPort": 2575,
+                },
+              ],
+              "volumeMounts": Array [
+                Object {
+                  "mountPath": "/opt/wildfly/standalone",
+                  "name": "dcm4chee-arc-wildfly-data",
+                },
+                Object {
+                  "mountPath": "/storage",
+                  "name": "dcm4chee-arc-storage-data",
+                },
+              ],
+            },
+          ],
+          "volumes": Array [
+            Object {
+              "name": "dcm4chee-arc-wildfly-data",
+              "persistentVolumeClaim": Object {
+                "claimName": "dcm4chee-arc-wildfly-data-pvc",
+              },
+            },
+            Object {
+              "name": "dcm4chee-arc-storage-data",
+              "persistentVolumeClaim": Object {
+                "claimName": "dcm4chee-arc-storage-data-pvc",
+              },
+            },
+          ],
+        },
+      },
+    },
+  },
+  Object {
+    "apiVersion": "v1",
+    "kind": "Service",
+    "metadata": Object {
+      "name": "dcm4chee-arc",
+      "namespace": "shanoir-ng",
+    },
+    "spec": Object {
+      "ports": Array [
+        Object {
+          "name": "http",
+          "port": 8081,
+          "targetPort": 8081,
+        },
+        Object {
+          "name": "https",
+          "port": 8443,
+          "targetPort": 8443,
+        },
+        Object {
+          "name": "management",
+          "port": 9990,
+          "targetPort": 9990,
+        },
+        Object {
+          "name": "dicom",
+          "port": 11112,
+          "targetPort": 11112,
+        },
+        Object {
+          "name": "jms",
+          "port": 2575,
+          "targetPort": 2575,
+        },
+      ],
+      "selector": Object {
+        "app": "dcm4chee-arc",
+      },
+    },
+  },
+  Object {
+    "apiVersion": "apps/v1",
+    "kind": "Deployment",
+    "metadata": Object {
+      "name": "nginx",
+      "namespace": "shanoir-ng",
+    },
+    "spec": Object {
+      "replicas": 1,
+      "selector": Object {
+        "matchLabels": Object {
+          "app": "nginx",
+        },
+      },
+      "template": Object {
+        "metadata": Object {
+          "labels": Object {
+            "app": "nginx",
+          },
+        },
+        "spec": Object {
+          "containers": Array [
+            Object {
+              "env": Array [
+                Object {
+                  "name": "SHANOIR_PREFIX",
+                  "valueFrom": Object {
+                    "configMapKeyRef": Object {
+                      "key": "SHANOIR_PREFIX",
+                      "name": "shanoir-config",
+                    },
+                  },
+                },
+                Object {
+                  "name": "SHANOIR_URL_SCHEME",
+                  "valueFrom": Object {
+                    "configMapKeyRef": Object {
+                      "key": "SHANOIR_URL_SCHEME",
+                      "name": "shanoir-config",
+                    },
+                  },
+                },
+                Object {
+                  "name": "SHANOIR_URL_HOST",
+                  "valueFrom": Object {
+                    "configMapKeyRef": Object {
+                      "key": "SHANOIR_URL_HOST",
+                      "name": "shanoir-config",
+                    },
+                  },
+                },
+                Object {
+                  "name": "SHANOIR_X_FORWARDED",
+                  "valueFrom": Object {
+                    "configMapKeyRef": Object {
+                      "key": "SHANOIR_X_FORWARDED",
+                      "name": "shanoir-config",
+                    },
+                  },
+                },
+                Object {
+                  "name": "SHANOIR_INSTANCE_NAME",
+                  "valueFrom": Object {
+                    "configMapKeyRef": Object {
+                      "key": "SHANOIR_INSTANCE_NAME",
+                      "name": "shanoir-config",
+                    },
+                  },
+                },
+                Object {
+                  "name": "SHANOIR_INSTANCE_COLOR",
+                  "valueFrom": Object {
+                    "configMapKeyRef": Object {
+                      "key": "SHANOIR_INSTANCE_COLOR",
+                      "name": "shanoir-config",
+                    },
+                  },
+                },
+              ],
+              "image": "ghcr.io/fli-iam/shanoir-ng/nginx:NG_v2.5.1",
+              "name": "nginx",
+              "ports": Array [
+                Object {
+                  "containerPort": 443,
+                },
+              ],
+              "volumeMounts": Array [
+                Object {
+                  "mountPath": "/var/log/nginx",
+                  "name": "logs",
+                },
+                Object {
+                  "mountPath": "/opt/ssl",
+                  "name": "certificate-share-data",
+                  "readOnly": true,
+                },
+              ],
+            },
+          ],
+          "volumes": Array [
+            Object {
+              "name": "logs",
+              "persistentVolumeClaim": Object {
+                "claimName": "logs-pvc",
+              },
+            },
+            Object {
+              "name": "certificate-share-data",
+              "persistentVolumeClaim": Object {
+                "claimName": "certificate-share-data-pvc",
+              },
+            },
+          ],
+        },
+      },
+    },
+  },
+  Object {
+    "apiVersion": "v1",
+    "kind": "Service",
+    "metadata": Object {
+      "name": "nginx",
+      "namespace": "shanoir-ng",
+    },
+    "spec": Object {
+      "ports": Array [
+        Object {
+          "port": 443,
+          "targetPort": 443,
+        },
+      ],
+      "selector": Object {
+        "app": "nginx",
+      },
+      "type": "LoadBalancer",
+    },
+  },
+  Object {
+    "apiVersion": "networking.k8s.io/v1",
+    "kind": "Ingress",
+    "metadata": Object {
+      "annotations": Object {
+        "cert-manager.io/cluster-issuer": "letsencrypt-prod",
+        "nginx.ingress.kubernetes.io/ssl-redirect": "true",
+      },
+      "name": "shanoir-ingress",
+      "namespace": "shanoir-ng",
+    },
+    "spec": Object {
+      "ingressClassName": "nginx",
+      "rules": Array [
+        Object {
+          "host": "shanoir.example.com",
+          "http": Object {
+            "paths": Array [
+              Object {
+                "backend": Object {
+                  "service": Object {
+                    "name": "nginx",
+                    "port": Object {
+                      "number": 443,
+                    },
+                  },
+                },
+                "path": "/",
+                "pathType": "Prefix",
+              },
+            ],
+          },
+        },
+      ],
+      "tls": Array [
+        Object {
+          "hosts": Array [
+            "shanoir.example.com",
+          ],
+          "secretName": "shanoir-tls",
+        },
+      ],
+    },
+  },
+]
+`;
