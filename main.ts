@@ -39,7 +39,7 @@ export class ShanoirNGChart extends Chart {
         SHANOIR_VIEWER_OHIF_URL_SCHEME: "https",
         SHANOIR_VIEWER_OHIF_URL_HOST: "ohif.example.com",
         SHANOIR_SMTP_HOST: "smtp.example.com",
-        SHANOIR_MIGRATION: "true",
+        SHANOIR_MIGRATION: "auto",
         SHANOIR_ADMIN_EMAIL: "admin@example.com",
         SHANOIR_ADMIN_NAME: "Admin",
         SHANOIR_ALLOWED_ADMIN_IPS: "0.0.0.0/0",
@@ -233,6 +233,33 @@ export class ShanoirNGChart extends Chart {
                     },
                   },
                   {
+                    name: "SHANOIR_SMTP_HOST",
+                    valueFrom: {
+                      configMapKeyRef: {
+                        name: "shanoir-config",
+                        key: "SHANOIR_SMTP_HOST",
+                      },
+                    },
+                  },
+                  {
+                    name: "SHANOIR_VIEWER_OHIF_URL_SCHEME",
+                    valueFrom: {
+                      configMapKeyRef: {
+                        name: "shanoir-config",
+                        key: "SHANOIR_VIEWER_OHIF_URL_SCHEME",
+                      },
+                    },
+                  },
+                  {
+                    name: "SHANOIR_VIEWER_OHIF_URL_HOST",
+                    valueFrom: {
+                      configMapKeyRef: {
+                        name: "shanoir-config",
+                        key: "SHANOIR_VIEWER_OHIF_URL_HOST",
+                      },
+                    },
+                  },
+                  {
                     name: "SHANOIR_ADMIN_NAME",
                     valueFrom: {
                       configMapKeyRef: {
@@ -335,8 +362,16 @@ export class ShanoirNGChart extends Chart {
       spec: {
         selector: { app: "rabbitmq" },
         ports: [
-          { name: "amqp", port: 5672, targetPort: IntOrString.fromNumber(5672) },
-          { name: "management", port: 15672, targetPort: IntOrString.fromNumber(15672) },
+          {
+            name: "amqp",
+            port: 5672,
+            targetPort: IntOrString.fromNumber(5672),
+          },
+          {
+            name: "management",
+            port: 15672,
+            targetPort: IntOrString.fromNumber(15672),
+          },
         ],
       },
     });
@@ -470,8 +505,16 @@ export class ShanoirNGChart extends Chart {
         spec: {
           selector: { app: name },
           ports: [
-            { name: "http", port: port, targetPort: IntOrString.fromNumber(port) },
-            { name: "debug", port: debugPort, targetPort: IntOrString.fromNumber(debugPort) },
+            {
+              name: "http",
+              port: port,
+              targetPort: IntOrString.fromNumber(port),
+            },
+            {
+              name: "debug",
+              port: debugPort,
+              targetPort: IntOrString.fromNumber(debugPort),
+            },
           ],
         },
       });
@@ -762,6 +805,12 @@ export class ShanoirNGChart extends Chart {
                 name: "dcm4chee-database",
                 image: "dcm4che/postgres-dcm4chee:14.4-27",
                 ports: [{ containerPort: 5432 }],
+                env: [
+                  {
+                    name: "POSTGRES_PASSWORD",
+                    value: "dcm4chee",
+                  },
+                ],
                 volumeMounts: [
                   {
                     name: "dcm4chee-database-data",
@@ -861,10 +910,26 @@ export class ShanoirNGChart extends Chart {
       spec: {
         selector: { app: "dcm4chee-arc" },
         ports: [
-          { name: "http", port: 8081, targetPort: IntOrString.fromNumber(8081) },
-          { name: "https", port: 8443, targetPort: IntOrString.fromNumber(8443) },
-          { name: "management", port: 9990, targetPort: IntOrString.fromNumber(9990) },
-          { name: "dicom", port: 11112, targetPort: IntOrString.fromNumber(11112) },
+          {
+            name: "http",
+            port: 8081,
+            targetPort: IntOrString.fromNumber(8081),
+          },
+          {
+            name: "https",
+            port: 8443,
+            targetPort: IntOrString.fromNumber(8443),
+          },
+          {
+            name: "management",
+            port: 9990,
+            targetPort: IntOrString.fromNumber(9990),
+          },
+          {
+            name: "dicom",
+            port: 11112,
+            targetPort: IntOrString.fromNumber(11112),
+          },
           { name: "jms", port: 2575, targetPort: IntOrString.fromNumber(2575) },
         ],
       },

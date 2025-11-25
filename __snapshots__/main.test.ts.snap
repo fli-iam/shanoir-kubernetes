@@ -18,7 +18,7 @@ Array [
       "SHANOIR_INSTANCE_COLOR": "#1f4e79",
       "SHANOIR_INSTANCE_NAME": "Shanoir NG",
       "SHANOIR_KEYCLOAK_ADAPTER_MODE": "true",
-      "SHANOIR_MIGRATION": "true",
+      "SHANOIR_MIGRATION": "auto",
       "SHANOIR_PREFIX": "shanoir-ng-",
       "SHANOIR_SMTP_HOST": "smtp.example.com",
       "SHANOIR_URL_HOST": "shanoir.example.com",
@@ -489,6 +489,33 @@ Array [
                   "valueFrom": Object {
                     "configMapKeyRef": Object {
                       "key": "SHANOIR_ADMIN_EMAIL",
+                      "name": "shanoir-config",
+                    },
+                  },
+                },
+                Object {
+                  "name": "SHANOIR_SMTP_HOST",
+                  "valueFrom": Object {
+                    "configMapKeyRef": Object {
+                      "key": "SHANOIR_SMTP_HOST",
+                      "name": "shanoir-config",
+                    },
+                  },
+                },
+                Object {
+                  "name": "SHANOIR_VIEWER_OHIF_URL_SCHEME",
+                  "valueFrom": Object {
+                    "configMapKeyRef": Object {
+                      "key": "SHANOIR_VIEWER_OHIF_URL_SCHEME",
+                      "name": "shanoir-config",
+                    },
+                  },
+                },
+                Object {
+                  "name": "SHANOIR_VIEWER_OHIF_URL_HOST",
+                  "valueFrom": Object {
+                    "configMapKeyRef": Object {
+                      "key": "SHANOIR_VIEWER_OHIF_URL_HOST",
                       "name": "shanoir-config",
                     },
                   },
@@ -1804,6 +1831,12 @@ Array [
         "spec": Object {
           "containers": Array [
             Object {
+              "env": Array [
+                Object {
+                  "name": "POSTGRES_PASSWORD",
+                  "value": "dcm4chee",
+                },
+              ],
               "image": "dcm4che/postgres-dcm4chee:14.4-27",
               "name": "dcm4chee-database",
               "ports": Array [
