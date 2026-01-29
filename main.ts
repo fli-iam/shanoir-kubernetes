@@ -23,6 +23,9 @@ export class ShanoirNGChart extends Chart {
     new KubeNamespace(this, "shanoir-namespace", {
       metadata: {
         name: "shanoir-ng",
+        labels: {
+          project: "shanoir-dev",
+        },
       },
     });
 
@@ -33,23 +36,26 @@ export class ShanoirNGChart extends Chart {
         namespace: "shanoir-ng",
       },
       data: {
-        SHANOIR_PREFIX: "shanoir-ng-",
+        SHANOIR_PREFIX: "",
         SHANOIR_URL_SCHEME: "https",
-        SHANOIR_URL_HOST: "shanoir.example.com",
+        SHANOIR_URL_HOST: "shanoir-dev.cibm.ch",
         SHANOIR_VIEWER_OHIF_URL_SCHEME: "https",
-        SHANOIR_VIEWER_OHIF_URL_HOST: "ohif.example.com",
-        SHANOIR_SMTP_HOST: "smtp.example.com",
+        SHANOIR_VIEWER_OHIF_URL_HOST: "viewer",
+        SHANOIR_SMTP_HOST: "localhost",
         SHANOIR_MIGRATION: "auto",
-        SHANOIR_ADMIN_EMAIL: "admin@example.com",
-        SHANOIR_ADMIN_NAME: "Admin",
-        SHANOIR_ALLOWED_ADMIN_IPS: "0.0.0.0/0",
-        SHANOIR_X_FORWARDED: "true",
-        SHANOIR_INSTANCE_NAME: "Shanoir NG",
-        SHANOIR_INSTANCE_COLOR: "#1f4e79",
-        SHANOIR_KEYCLOAK_ADAPTER_MODE: "true",
+        SHANOIR_ADMIN_EMAIL: "shanoir.admin@inria.fr",
+        SHANOIR_ADMIN_NAME: "shanoir admin",
+        SHANOIR_ALLOWED_ADMIN_IPS: "",
+        SHANOIR_X_FORWARDED: "generate",
+        SHANOIR_INSTANCE_NAME: "",
+        SHANOIR_INSTANCE_COLOR: "",
+        SHANOIR_KEYCLOAK_ADAPTER_MODE: "check-sso",
+        SHANOIR_CERTIFICATE: "auto",
+        SHANOIR_CERTIFICATE_PEM_CRT: "none",
+        SHANOIR_CERTIFICATE_PEM_KEY: "none",
         VIP_URL_SCHEME: "https",
-        VIP_URL_HOST: "vip.example.com",
-        VIP_SERVICE_EMAIL: "vip@example.com",
+        VIP_URL_HOST: "vip.creatis.insa-lyon.fr",
+        VIP_SERVICE_EMAIL: "",
       },
     });
 
@@ -61,11 +67,8 @@ export class ShanoirNGChart extends Chart {
       },
       stringData: {
         SHANOIR_KEYCLOAK_USER: "admin",
-        SHANOIR_KEYCLOAK_PASSWORD: "admin123",
-        SHANOIR_CERTIFICATE: "base64-encoded-cert",
-        SHANOIR_CERTIFICATE_PEM_CRT: "base64-encoded-crt",
-        SHANOIR_CERTIFICATE_PEM_KEY: "base64-encoded-key",
-        VIP_CLIENT_SECRET: "vip-client-secret",
+        SHANOIR_KEYCLOAK_PASSWORD: "&a1A&a1A",
+        VIP_CLIENT_SECRET: "SECRET",
         MYSQL_DATABASE: "keycloak",
         MYSQL_ROOT_PASSWORD: "root123",
         MYSQL_PASSWORD: "mysql123",
@@ -160,7 +163,8 @@ export class ShanoirNGChart extends Chart {
             containers: [
               {
                 name: "keycloak-database",
-                image: "ghcr.io/fli-iam/shanoir-ng/keycloak-database:NG_v2.5.1",
+                image: "ghcr.io/fli-iam/shanoir-ng/keycloak-database:NG_v2.7.5",
+                args: ["--ignore-db-dir=lost+found"],
                 env: [
                   {
                     name: "MYSQL_DATABASE",
@@ -220,9 +224,10 @@ export class ShanoirNGChart extends Chart {
             containers: [
               {
                 name: "keycloak",
-                image: "ghcr.io/fli-iam/shanoir-ng/keycloak:NG_v2.5.1",
+                image: "ghcr.io/fli-iam/shanoir-ng/keycloak:NG_v2.7.5",
                 env: [
                   ...getCommonEnvVars(),
+
                   {
                     name: "SHANOIR_ADMIN_EMAIL",
                     valueFrom: {
@@ -391,8 +396,13 @@ export class ShanoirNGChart extends Chart {
             containers: [
               {
                 name: "database",
-                image: "ghcr.io/fli-iam/shanoir-ng/database:NG_v2.5.1",
-                args: ["--max_allowed_packet", "20000000"],
+                image: "ghcr.io/fli-iam/shanoir-ng/database:NG_v2.7.5",
+                // command: ["/bin/sh", "-c"],
+                args: [
+                  "--max_allowed_packet",
+                  "20000000",
+                  "--ignore-db-dir=lost+found", // Fix k8s and old mysql https://stackoverflow.com/questions/37644118/initializing-mysql-directory-error
+                ],
                 env: [
                   {
                     name: "SHANOIR_MIGRATION",
@@ -402,6 +412,10 @@ export class ShanoirNGChart extends Chart {
                         key: "SHANOIR_MIGRATION",
                       },
                     },
+                  },
+                  {
+                    name: "MYSQL_ROOT_PASSWORD",
+                    value: "password",
                   },
                 ],
                 ports: [{ containerPort: 3306 }],
@@ -464,7 +478,10 @@ export class ShanoirNGChart extends Chart {
         },
         ...additionalVolumes.map((vol) => ({
           name: vol.name,
-          persistentVolumeClaim: { claimName: `${vol.name}-pvc` },
+          // Use emptyDir for tmp volumes, PVC for others
+          ...(vol.name === "tmp"
+            ? { emptyDir: {} }
+            : { persistentVolumeClaim: { claimName: `${vol.name}-pvc` } }),
         })),
       ];
 
@@ -477,12 +494,33 @@ export class ShanoirNGChart extends Chart {
           replicas: 1,
           selector: { matchLabels: { app: name } },
           template: {
-            metadata: { labels: { app: name } },
+            metadata: { labels: { app: name, project: "shanoir-dev" } },
             spec: {
+              affinity: {
+                podAffinity: {
+                  preferredDuringSchedulingIgnoredDuringExecution: [
+                    {
+                      weight: 100,
+                      podAffinityTerm: {
+                        labelSelector: {
+                          matchExpressions: [
+                            {
+                              key: "project",
+                              operator: "In",
+                              values: ["shanoir-dev"],
+                            },
+                          ],
+                        },
+                        topologyKey: "kubernetes.io/hostname",
+                      },
+                    },
+                  ],
+                },
+              },
               containers: [
                 {
                   name: name,
-                  image: `ghcr.io/fli-iam/shanoir-ng/${name}:NG_v2.5.1`,
+                  image: `ghcr.io/fli-iam/shanoir-ng/${name}:NG_v2.7.5`,
                   env: [...getCommonEnvVars(), ...additionalEnv],
                   ports: [
                     { containerPort: port },
@@ -559,6 +597,24 @@ export class ShanoirNGChart extends Chart {
         name: "VIP_SERVICE_EMAIL",
         valueFrom: {
           configMapKeyRef: { name: "shanoir-config", key: "VIP_SERVICE_EMAIL" },
+        },
+      },
+      {
+        name: "SHANOIR_CERTIFICATE_PEM_CRT",
+        valueFrom: {
+          configMapKeyRef: {
+            name: "shanoir-config",
+            key: "SHANOIR_CERTIFICATE_PEM_CRT",
+          },
+        },
+      },
+      {
+        name: "SHANOIR_CERTIFICATE_PEM_KEY",
+        valueFrom: {
+          configMapKeyRef: {
+            name: "shanoir-config",
+            key: "SHANOIR_CERTIFICATE_PEM_KEY",
+          },
         },
       },
     ]);
@@ -655,12 +711,35 @@ export class ShanoirNGChart extends Chart {
         replicas: 1,
         selector: { matchLabels: { app: "nifti-conversion" } },
         template: {
-          metadata: { labels: { app: "nifti-conversion" } },
+          metadata: {
+            labels: { app: "nifti-conversion", project: "shanoir-dev" },
+          },
           spec: {
+            affinity: {
+              podAffinity: {
+                preferredDuringSchedulingIgnoredDuringExecution: [
+                  {
+                    weight: 100,
+                    podAffinityTerm: {
+                      labelSelector: {
+                        matchExpressions: [
+                          {
+                            key: "project",
+                            operator: "In",
+                            values: ["shanoir-dev"],
+                          },
+                        ],
+                      },
+                      topologyKey: "kubernetes.io/hostname",
+                    },
+                  },
+                ],
+              },
+            },
             containers: [
               {
                 name: "nifti-conversion",
-                image: "ghcr.io/fli-iam/shanoir-ng/nifti-conversion:NG_v2.5.1",
+                image: "ghcr.io/fli-iam/shanoir-ng/nifti-conversion:NG_v2.7.5",
                 env: getCommonEnvVars(),
                 volumeMounts: [
                   { name: "logs", mountPath: "/var/log/shanoir-ng-logs" },
@@ -678,7 +757,7 @@ export class ShanoirNGChart extends Chart {
                 name: "datasets-data",
                 persistentVolumeClaim: { claimName: "datasets-data-pvc" },
               },
-              { name: "tmp", persistentVolumeClaim: { claimName: "tmp-pvc" } },
+              { name: "tmp", emptyDir: {} },
             ],
           },
         },
@@ -697,11 +776,21 @@ export class ShanoirNGChart extends Chart {
         template: {
           metadata: { labels: { app: "solr" } },
           spec: {
+            securityContext: {
+              fsGroup: 8983,
+              runAsUser: 8983,
+              runAsGroup: 8983,
+            },
             containers: [
               {
                 name: "solr",
-                image: "ghcr.io/fli-iam/shanoir-ng/solr:NG_v2.5.1",
-                env: [{ name: "SOLR_LOG_LEVEL", value: "SEVERE" }],
+                image: "ghcr.io/fli-iam/shanoir-ng/solr:NG_v2.7.5",
+                env: [
+                  { name: "SOLR_LOG_LEVEL", value: "SEVERE" },
+                  { name: "RMI_PORT", value: "8983" },
+                  { name: "SOLR_PORT", value: "8984" },
+                  { name: "SOLR_JETTY_HOST", value: "0.0.0.0" },
+                ],
                 ports: [{ containerPort: 8983 }],
                 volumeMounts: [
                   {
@@ -809,6 +898,14 @@ export class ShanoirNGChart extends Chart {
                   {
                     name: "POSTGRES_PASSWORD",
                     value: "dcm4chee",
+                  },
+                  {
+                    name: "POSTGRES_INITDB_ARGS",
+                    value: "--no-sync",
+                  },
+                  {
+                    name: "PGDATA",
+                    value: "/var/lib/postgresql/data/pgdata",
                   },
                 ],
                 volumeMounts: [
@@ -945,12 +1042,33 @@ export class ShanoirNGChart extends Chart {
         replicas: 1,
         selector: { matchLabels: { app: "nginx" } },
         template: {
-          metadata: { labels: { app: "nginx" } },
+          metadata: { labels: { app: "nginx", project: "shanoir-dev" } },
           spec: {
+            affinity: {
+              podAffinity: {
+                preferredDuringSchedulingIgnoredDuringExecution: [
+                  {
+                    weight: 100,
+                    podAffinityTerm: {
+                      labelSelector: {
+                        matchExpressions: [
+                          {
+                            key: "project",
+                            operator: "In",
+                            values: ["shanoir-dev"],
+                          },
+                        ],
+                      },
+                      topologyKey: "kubernetes.io/hostname",
+                    },
+                  },
+                ],
+              },
+            },
             containers: [
               {
                 name: "nginx",
-                image: "ghcr.io/fli-iam/shanoir-ng/nginx:NG_v2.5.1",
+                image: "ghcr.io/fli-iam/shanoir-ng/nginx:NG_v2.7.5",
                 env: [
                   {
                     name: "SHANOIR_PREFIX",
@@ -1006,8 +1124,62 @@ export class ShanoirNGChart extends Chart {
                       },
                     },
                   },
+                  {
+                    name: "SHANOIR_VIEWER_OHIF_URL_HOST",
+                    valueFrom: {
+                      configMapKeyRef: {
+                        name: "shanoir-config",
+                        key: "SHANOIR_VIEWER_OHIF_URL_HOST",
+                      },
+                    },
+                  },
+                  {
+                    name: "SHANOIR_VIEWER_OHIF_URL_SCHEME",
+                    valueFrom: {
+                      configMapKeyRef: {
+                        name: "shanoir-config",
+                        key: "SHANOIR_VIEWER_OHIF_URL_SCHEME",
+                      },
+                    },
+                  },
+                  {
+                    name: "SHANOIR_CERTIFICATE_PEM_CRT",
+                    valueFrom: {
+                      configMapKeyRef: {
+                        name: "shanoir-config",
+                        key: "SHANOIR_CERTIFICATE_PEM_CRT",
+                      },
+                    },
+                  },
+                  {
+                    name: "SHANOIR_CERTIFICATE_PEM_KEY",
+                    valueFrom: {
+                      configMapKeyRef: {
+                        name: "shanoir-config",
+                        key: "SHANOIR_CERTIFICATE_PEM_KEY",
+                      },
+                    },
+                  },
+                  {
+                    name: "VIP_URL_HOST",
+                    valueFrom: {
+                      configMapKeyRef: {
+                        name: "shanoir-config",
+                        key: "VIP_URL_HOST",
+                      },
+                    },
+                  },
+                  {
+                    name: "VIP_URL_SCHEME",
+                    valueFrom: {
+                      configMapKeyRef: {
+                        name: "shanoir-config",
+                        key: "VIP_URL_SCHEME",
+                      },
+                    },
+                  },
                 ],
-                ports: [{ containerPort: 443 }],
+                ports: [{ containerPort: 80 }],
                 volumeMounts: [
                   { name: "logs", mountPath: "/var/log/nginx" },
                   {
@@ -1042,8 +1214,14 @@ export class ShanoirNGChart extends Chart {
       },
       spec: {
         selector: { app: "nginx" },
-        type: "LoadBalancer",
-        ports: [{ port: 443, targetPort: IntOrString.fromNumber(443) }],
+        type: "ClusterIP",
+        ports: [
+          {
+            name: "http",
+            port: 80,
+            targetPort: IntOrString.fromNumber(80),
+          },
+        ],
       },
     });
 
@@ -1054,20 +1232,20 @@ export class ShanoirNGChart extends Chart {
         namespace: "shanoir-ng",
         annotations: {
           "cert-manager.io/cluster-issuer": "letsencrypt-prod",
-          "nginx.ingress.kubernetes.io/ssl-redirect": "true",
+          "traefik.ingress.kubernetes.io/router.entrypoints": "websecure",
         },
       },
       spec: {
-        ingressClassName: "nginx",
+        ingressClassName: "traefik",
         tls: [
           {
-            hosts: ["shanoir.example.com"],
-            secretName: "shanoir-tls",
+            hosts: ["shanoir-dev.cibm.ch"],
+            secretName: "shanoir-tls-cert",
           },
         ],
         rules: [
           {
-            host: "shanoir.example.com",
+            host: "shanoir-dev.cibm.ch",
             http: {
               paths: [
                 {
@@ -1076,7 +1254,7 @@ export class ShanoirNGChart extends Chart {
                   backend: {
                     service: {
                       name: "nginx",
-                      port: { number: 443 },
+                      port: { number: 80 },
                     },
                   },
                 },

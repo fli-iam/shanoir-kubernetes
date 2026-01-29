@@ -6,28 +6,34 @@ Array [
     "apiVersion": "v1",
     "kind": "Namespace",
     "metadata": Object {
+      "labels": Object {
+        "project": "shanoir-dev",
+      },
       "name": "shanoir-ng",
     },
   },
   Object {
     "apiVersion": "v1",
     "data": Object {
-      "SHANOIR_ADMIN_EMAIL": "admin@example.com",
-      "SHANOIR_ADMIN_NAME": "Admin",
-      "SHANOIR_ALLOWED_ADMIN_IPS": "0.0.0.0/0",
-      "SHANOIR_INSTANCE_COLOR": "#1f4e79",
-      "SHANOIR_INSTANCE_NAME": "Shanoir NG",
-      "SHANOIR_KEYCLOAK_ADAPTER_MODE": "true",
+      "SHANOIR_ADMIN_EMAIL": "shanoir.admin@inria.fr",
+      "SHANOIR_ADMIN_NAME": "shanoir admin",
+      "SHANOIR_ALLOWED_ADMIN_IPS": "",
+      "SHANOIR_CERTIFICATE": "auto",
+      "SHANOIR_CERTIFICATE_PEM_CRT": "none",
+      "SHANOIR_CERTIFICATE_PEM_KEY": "none",
+      "SHANOIR_INSTANCE_COLOR": "",
+      "SHANOIR_INSTANCE_NAME": "",
+      "SHANOIR_KEYCLOAK_ADAPTER_MODE": "check-sso",
       "SHANOIR_MIGRATION": "auto",
-      "SHANOIR_PREFIX": "shanoir-ng-",
-      "SHANOIR_SMTP_HOST": "smtp.example.com",
-      "SHANOIR_URL_HOST": "shanoir.example.com",
+      "SHANOIR_PREFIX": "",
+      "SHANOIR_SMTP_HOST": "localhost",
+      "SHANOIR_URL_HOST": "shanoir-dev.cibm.ch",
       "SHANOIR_URL_SCHEME": "https",
-      "SHANOIR_VIEWER_OHIF_URL_HOST": "ohif.example.com",
+      "SHANOIR_VIEWER_OHIF_URL_HOST": "viewer",
       "SHANOIR_VIEWER_OHIF_URL_SCHEME": "https",
-      "SHANOIR_X_FORWARDED": "true",
-      "VIP_SERVICE_EMAIL": "vip@example.com",
-      "VIP_URL_HOST": "vip.example.com",
+      "SHANOIR_X_FORWARDED": "generate",
+      "VIP_SERVICE_EMAIL": "",
+      "VIP_URL_HOST": "vip.creatis.insa-lyon.fr",
       "VIP_URL_SCHEME": "https",
     },
     "kind": "ConfigMap",
@@ -48,12 +54,9 @@ Array [
       "MYSQL_PASSWORD": "mysql123",
       "MYSQL_ROOT_PASSWORD": "root123",
       "MYSQL_USER": "mysql",
-      "SHANOIR_CERTIFICATE": "base64-encoded-cert",
-      "SHANOIR_CERTIFICATE_PEM_CRT": "base64-encoded-crt",
-      "SHANOIR_CERTIFICATE_PEM_KEY": "base64-encoded-key",
-      "SHANOIR_KEYCLOAK_PASSWORD": "admin123",
+      "SHANOIR_KEYCLOAK_PASSWORD": "&a1A&a1A",
       "SHANOIR_KEYCLOAK_USER": "admin",
-      "VIP_CLIENT_SECRET": "vip-client-secret",
+      "VIP_CLIENT_SECRET": "SECRET",
     },
   },
   Object {
@@ -367,6 +370,9 @@ Array [
         "spec": Object {
           "containers": Array [
             Object {
+              "args": Array [
+                "--ignore-db-dir=lost+found",
+              ],
               "env": Array [
                 Object {
                   "name": "MYSQL_DATABASE",
@@ -378,7 +384,7 @@ Array [
                   },
                 },
               ],
-              "image": "ghcr.io/fli-iam/shanoir-ng/keycloak-database:NG_v2.5.1",
+              "image": "ghcr.io/fli-iam/shanoir-ng/keycloak-database:NG_v2.7.5",
               "name": "keycloak-database",
               "ports": Array [
                 Object {
@@ -548,7 +554,7 @@ Array [
                   },
                 },
               ],
-              "image": "ghcr.io/fli-iam/shanoir-ng/keycloak:NG_v2.5.1",
+              "image": "ghcr.io/fli-iam/shanoir-ng/keycloak:NG_v2.7.5",
               "name": "keycloak",
               "ports": Array [
                 Object {
@@ -698,6 +704,7 @@ Array [
               "args": Array [
                 "--max_allowed_packet",
                 "20000000",
+                "--ignore-db-dir=lost+found",
               ],
               "env": Array [
                 Object {
@@ -709,8 +716,12 @@ Array [
                     },
                   },
                 },
+                Object {
+                  "name": "MYSQL_ROOT_PASSWORD",
+                  "value": "password",
+                },
               ],
-              "image": "ghcr.io/fli-iam/shanoir-ng/database:NG_v2.5.1",
+              "image": "ghcr.io/fli-iam/shanoir-ng/database:NG_v2.7.5",
               "name": "database",
               "ports": Array [
                 Object {
@@ -774,9 +785,33 @@ Array [
         "metadata": Object {
           "labels": Object {
             "app": "users",
+            "project": "shanoir-dev",
           },
         },
         "spec": Object {
+          "affinity": Object {
+            "podAffinity": Object {
+              "preferredDuringSchedulingIgnoredDuringExecution": Array [
+                Object {
+                  "podAffinityTerm": Object {
+                    "labelSelector": Object {
+                      "matchExpressions": Array [
+                        Object {
+                          "key": "project",
+                          "operator": "In",
+                          "values": Array [
+                            "shanoir-dev",
+                          ],
+                        },
+                      ],
+                    },
+                    "topologyKey": "kubernetes.io/hostname",
+                  },
+                  "weight": 100,
+                },
+              ],
+            },
+          },
           "containers": Array [
             Object {
               "env": Array [
@@ -861,8 +896,26 @@ Array [
                     },
                   },
                 },
+                Object {
+                  "name": "SHANOIR_CERTIFICATE_PEM_CRT",
+                  "valueFrom": Object {
+                    "configMapKeyRef": Object {
+                      "key": "SHANOIR_CERTIFICATE_PEM_CRT",
+                      "name": "shanoir-config",
+                    },
+                  },
+                },
+                Object {
+                  "name": "SHANOIR_CERTIFICATE_PEM_KEY",
+                  "valueFrom": Object {
+                    "configMapKeyRef": Object {
+                      "key": "SHANOIR_CERTIFICATE_PEM_KEY",
+                      "name": "shanoir-config",
+                    },
+                  },
+                },
               ],
-              "image": "ghcr.io/fli-iam/shanoir-ng/users:NG_v2.5.1",
+              "image": "ghcr.io/fli-iam/shanoir-ng/users:NG_v2.7.5",
               "name": "users",
               "ports": Array [
                 Object {
@@ -946,9 +999,33 @@ Array [
         "metadata": Object {
           "labels": Object {
             "app": "studies",
+            "project": "shanoir-dev",
           },
         },
         "spec": Object {
+          "affinity": Object {
+            "podAffinity": Object {
+              "preferredDuringSchedulingIgnoredDuringExecution": Array [
+                Object {
+                  "podAffinityTerm": Object {
+                    "labelSelector": Object {
+                      "matchExpressions": Array [
+                        Object {
+                          "key": "project",
+                          "operator": "In",
+                          "values": Array [
+                            "shanoir-dev",
+                          ],
+                        },
+                      ],
+                    },
+                    "topologyKey": "kubernetes.io/hostname",
+                  },
+                  "weight": 100,
+                },
+              ],
+            },
+          },
           "containers": Array [
             Object {
               "env": Array [
@@ -989,7 +1066,7 @@ Array [
                   },
                 },
               ],
-              "image": "ghcr.io/fli-iam/shanoir-ng/studies:NG_v2.5.1",
+              "image": "ghcr.io/fli-iam/shanoir-ng/studies:NG_v2.7.5",
               "name": "studies",
               "ports": Array [
                 Object {
@@ -1040,10 +1117,8 @@ Array [
               },
             },
             Object {
+              "emptyDir": Object {},
               "name": "tmp",
-              "persistentVolumeClaim": Object {
-                "claimName": "tmp-pvc",
-              },
             },
           ],
         },
@@ -1093,9 +1168,33 @@ Array [
         "metadata": Object {
           "labels": Object {
             "app": "import",
+            "project": "shanoir-dev",
           },
         },
         "spec": Object {
+          "affinity": Object {
+            "podAffinity": Object {
+              "preferredDuringSchedulingIgnoredDuringExecution": Array [
+                Object {
+                  "podAffinityTerm": Object {
+                    "labelSelector": Object {
+                      "matchExpressions": Array [
+                        Object {
+                          "key": "project",
+                          "operator": "In",
+                          "values": Array [
+                            "shanoir-dev",
+                          ],
+                        },
+                      ],
+                    },
+                    "topologyKey": "kubernetes.io/hostname",
+                  },
+                  "weight": 100,
+                },
+              ],
+            },
+          },
           "containers": Array [
             Object {
               "env": Array [
@@ -1136,7 +1235,7 @@ Array [
                   },
                 },
               ],
-              "image": "ghcr.io/fli-iam/shanoir-ng/import:NG_v2.5.1",
+              "image": "ghcr.io/fli-iam/shanoir-ng/import:NG_v2.7.5",
               "name": "import",
               "ports": Array [
                 Object {
@@ -1177,10 +1276,8 @@ Array [
               },
             },
             Object {
+              "emptyDir": Object {},
               "name": "tmp",
-              "persistentVolumeClaim": Object {
-                "claimName": "tmp-pvc",
-              },
             },
           ],
         },
@@ -1230,9 +1327,33 @@ Array [
         "metadata": Object {
           "labels": Object {
             "app": "datasets",
+            "project": "shanoir-dev",
           },
         },
         "spec": Object {
+          "affinity": Object {
+            "podAffinity": Object {
+              "preferredDuringSchedulingIgnoredDuringExecution": Array [
+                Object {
+                  "podAffinityTerm": Object {
+                    "labelSelector": Object {
+                      "matchExpressions": Array [
+                        Object {
+                          "key": "project",
+                          "operator": "In",
+                          "values": Array [
+                            "shanoir-dev",
+                          ],
+                        },
+                      ],
+                    },
+                    "topologyKey": "kubernetes.io/hostname",
+                  },
+                  "weight": 100,
+                },
+              ],
+            },
+          },
           "containers": Array [
             Object {
               "env": Array [
@@ -1318,7 +1439,7 @@ Array [
                   },
                 },
               ],
-              "image": "ghcr.io/fli-iam/shanoir-ng/datasets:NG_v2.5.1",
+              "image": "ghcr.io/fli-iam/shanoir-ng/datasets:NG_v2.7.5",
               "name": "datasets",
               "ports": Array [
                 Object {
@@ -1363,10 +1484,8 @@ Array [
               },
             },
             Object {
+              "emptyDir": Object {},
               "name": "tmp",
-              "persistentVolumeClaim": Object {
-                "claimName": "tmp-pvc",
-              },
             },
             Object {
               "name": "datasets-data",
@@ -1422,9 +1541,33 @@ Array [
         "metadata": Object {
           "labels": Object {
             "app": "preclinical",
+            "project": "shanoir-dev",
           },
         },
         "spec": Object {
+          "affinity": Object {
+            "podAffinity": Object {
+              "preferredDuringSchedulingIgnoredDuringExecution": Array [
+                Object {
+                  "podAffinityTerm": Object {
+                    "labelSelector": Object {
+                      "matchExpressions": Array [
+                        Object {
+                          "key": "project",
+                          "operator": "In",
+                          "values": Array [
+                            "shanoir-dev",
+                          ],
+                        },
+                      ],
+                    },
+                    "topologyKey": "kubernetes.io/hostname",
+                  },
+                  "weight": 100,
+                },
+              ],
+            },
+          },
           "containers": Array [
             Object {
               "env": Array [
@@ -1465,7 +1608,7 @@ Array [
                   },
                 },
               ],
-              "image": "ghcr.io/fli-iam/shanoir-ng/preclinical:NG_v2.5.1",
+              "image": "ghcr.io/fli-iam/shanoir-ng/preclinical:NG_v2.7.5",
               "name": "preclinical",
               "ports": Array [
                 Object {
@@ -1510,10 +1653,8 @@ Array [
               },
             },
             Object {
+              "emptyDir": Object {},
               "name": "tmp",
-              "persistentVolumeClaim": Object {
-                "claimName": "tmp-pvc",
-              },
             },
             Object {
               "name": "extra-data",
@@ -1569,9 +1710,33 @@ Array [
         "metadata": Object {
           "labels": Object {
             "app": "nifti-conversion",
+            "project": "shanoir-dev",
           },
         },
         "spec": Object {
+          "affinity": Object {
+            "podAffinity": Object {
+              "preferredDuringSchedulingIgnoredDuringExecution": Array [
+                Object {
+                  "podAffinityTerm": Object {
+                    "labelSelector": Object {
+                      "matchExpressions": Array [
+                        Object {
+                          "key": "project",
+                          "operator": "In",
+                          "values": Array [
+                            "shanoir-dev",
+                          ],
+                        },
+                      ],
+                    },
+                    "topologyKey": "kubernetes.io/hostname",
+                  },
+                  "weight": 100,
+                },
+              ],
+            },
+          },
           "containers": Array [
             Object {
               "env": Array [
@@ -1612,7 +1777,7 @@ Array [
                   },
                 },
               ],
-              "image": "ghcr.io/fli-iam/shanoir-ng/nifti-conversion:NG_v2.5.1",
+              "image": "ghcr.io/fli-iam/shanoir-ng/nifti-conversion:NG_v2.7.5",
               "name": "nifti-conversion",
               "volumeMounts": Array [
                 Object {
@@ -1644,10 +1809,8 @@ Array [
               },
             },
             Object {
+              "emptyDir": Object {},
               "name": "tmp",
-              "persistentVolumeClaim": Object {
-                "claimName": "tmp-pvc",
-              },
             },
           ],
         },
@@ -1682,8 +1845,20 @@ Array [
                   "name": "SOLR_LOG_LEVEL",
                   "value": "SEVERE",
                 },
+                Object {
+                  "name": "RMI_PORT",
+                  "value": "8983",
+                },
+                Object {
+                  "name": "SOLR_PORT",
+                  "value": "8984",
+                },
+                Object {
+                  "name": "SOLR_JETTY_HOST",
+                  "value": "0.0.0.0",
+                },
               ],
-              "image": "ghcr.io/fli-iam/shanoir-ng/solr:NG_v2.5.1",
+              "image": "ghcr.io/fli-iam/shanoir-ng/solr:NG_v2.7.5",
               "name": "solr",
               "ports": Array [
                 Object {
@@ -1698,6 +1873,11 @@ Array [
               ],
             },
           ],
+          "securityContext": Object {
+            "fsGroup": 8983,
+            "runAsGroup": 8983,
+            "runAsUser": 8983,
+          },
           "volumes": Array [
             Object {
               "name": "solr-data",
@@ -1835,6 +2015,14 @@ Array [
                 Object {
                   "name": "POSTGRES_PASSWORD",
                   "value": "dcm4chee",
+                },
+                Object {
+                  "name": "POSTGRES_INITDB_ARGS",
+                  "value": "--no-sync",
+                },
+                Object {
+                  "name": "PGDATA",
+                  "value": "/var/lib/postgresql/data/pgdata",
                 },
               ],
               "image": "dcm4che/postgres-dcm4chee:14.4-27",
@@ -2027,9 +2215,33 @@ Array [
         "metadata": Object {
           "labels": Object {
             "app": "nginx",
+            "project": "shanoir-dev",
           },
         },
         "spec": Object {
+          "affinity": Object {
+            "podAffinity": Object {
+              "preferredDuringSchedulingIgnoredDuringExecution": Array [
+                Object {
+                  "podAffinityTerm": Object {
+                    "labelSelector": Object {
+                      "matchExpressions": Array [
+                        Object {
+                          "key": "project",
+                          "operator": "In",
+                          "values": Array [
+                            "shanoir-dev",
+                          ],
+                        },
+                      ],
+                    },
+                    "topologyKey": "kubernetes.io/hostname",
+                  },
+                  "weight": 100,
+                },
+              ],
+            },
+          },
           "containers": Array [
             Object {
               "env": Array [
@@ -2087,12 +2299,66 @@ Array [
                     },
                   },
                 },
+                Object {
+                  "name": "SHANOIR_VIEWER_OHIF_URL_HOST",
+                  "valueFrom": Object {
+                    "configMapKeyRef": Object {
+                      "key": "SHANOIR_VIEWER_OHIF_URL_HOST",
+                      "name": "shanoir-config",
+                    },
+                  },
+                },
+                Object {
+                  "name": "SHANOIR_VIEWER_OHIF_URL_SCHEME",
+                  "valueFrom": Object {
+                    "configMapKeyRef": Object {
+                      "key": "SHANOIR_VIEWER_OHIF_URL_SCHEME",
+                      "name": "shanoir-config",
+                    },
+                  },
+                },
+                Object {
+                  "name": "SHANOIR_CERTIFICATE_PEM_CRT",
+                  "valueFrom": Object {
+                    "configMapKeyRef": Object {
+                      "key": "SHANOIR_CERTIFICATE_PEM_CRT",
+                      "name": "shanoir-config",
+                    },
+                  },
+                },
+                Object {
+                  "name": "SHANOIR_CERTIFICATE_PEM_KEY",
+                  "valueFrom": Object {
+                    "configMapKeyRef": Object {
+                      "key": "SHANOIR_CERTIFICATE_PEM_KEY",
+                      "name": "shanoir-config",
+                    },
+                  },
+                },
+                Object {
+                  "name": "VIP_URL_HOST",
+                  "valueFrom": Object {
+                    "configMapKeyRef": Object {
+                      "key": "VIP_URL_HOST",
+                      "name": "shanoir-config",
+                    },
+                  },
+                },
+                Object {
+                  "name": "VIP_URL_SCHEME",
+                  "valueFrom": Object {
+                    "configMapKeyRef": Object {
+                      "key": "VIP_URL_SCHEME",
+                      "name": "shanoir-config",
+                    },
+                  },
+                },
               ],
-              "image": "ghcr.io/fli-iam/shanoir-ng/nginx:NG_v2.5.1",
+              "image": "ghcr.io/fli-iam/shanoir-ng/nginx:NG_v2.7.5",
               "name": "nginx",
               "ports": Array [
                 Object {
-                  "containerPort": 443,
+                  "containerPort": 80,
                 },
               ],
               "volumeMounts": Array [
@@ -2136,14 +2402,15 @@ Array [
     "spec": Object {
       "ports": Array [
         Object {
-          "port": 443,
-          "targetPort": 443,
+          "name": "http",
+          "port": 80,
+          "targetPort": 80,
         },
       ],
       "selector": Object {
         "app": "nginx",
       },
-      "type": "LoadBalancer",
+      "type": "ClusterIP",
     },
   },
   Object {
@@ -2152,16 +2419,16 @@ Array [
     "metadata": Object {
       "annotations": Object {
         "cert-manager.io/cluster-issuer": "letsencrypt-prod",
-        "nginx.ingress.kubernetes.io/ssl-redirect": "true",
+        "traefik.ingress.kubernetes.io/router.entrypoints": "websecure",
       },
       "name": "shanoir-ingress",
       "namespace": "shanoir-ng",
     },
     "spec": Object {
-      "ingressClassName": "nginx",
+      "ingressClassName": "traefik",
       "rules": Array [
         Object {
-          "host": "shanoir.example.com",
+          "host": "shanoir-dev.cibm.ch",
           "http": Object {
             "paths": Array [
               Object {
@@ -2169,7 +2436,7 @@ Array [
                   "service": Object {
                     "name": "nginx",
                     "port": Object {
-                      "number": 443,
+                      "number": 80,
                     },
                   },
                 },
@@ -2183,9 +2450,9 @@ Array [
       "tls": Array [
         Object {
           "hosts": Array [
-            "shanoir.example.com",
+            "shanoir-dev.cibm.ch",
           ],
-          "secretName": "shanoir-tls",
+          "secretName": "shanoir-tls-cert",
         },
       ],
     },

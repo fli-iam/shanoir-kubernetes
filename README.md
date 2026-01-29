@@ -176,3 +176,6 @@ To modify the deployment:
 - **Test**: `npm run test`
 - **Synth**: `npm run synth`
 - **Full build**: `npm run build`
+
+Important infos axel:
+first first start: migration mode to init, everything will crash, and after that, restart with never/auto
