@@ -16,12 +16,10 @@ The generated Kubernetes manifests include:
 ### Services Converted
 
 1. **Authentication & Authorization**
-
    - Keycloak (identity management)
    - Keycloak Database (MySQL)
 
 2. **Core Microservices**
-
    - Users service (9901/9911)
    - Studies service (9902/9912)
    - Import service (9903/9913)
@@ -30,7 +28,6 @@ The generated Kubernetes manifests include:
    - Nifti-conversion service
 
 3. **Infrastructure Services**
-
    - RabbitMQ (message queue)
    - Main Database (MySQL)
    - Solr (search engine)
@@ -50,7 +47,6 @@ The generated Kubernetes manifests include:
 ## Prerequisites
 
 1. **Kubernetes Cluster**: A running Kubernetes cluster with:
-
    - Sufficient resources (recommend 8+ CPU cores, 16GB+ RAM)
    - Storage provisioner for PersistentVolumes
    - Ingress controller (nginx recommended)
@@ -65,13 +61,11 @@ The generated Kubernetes manifests include:
 Before deploying, update the following in `main.ts`:
 
 1. **Domain Names**: Replace example domains:
-
    - `shanoir.example.com` → your actual domain
    - `ohif.example.com` → your OHIF viewer domain
    - `vip.example.com` → your VIP platform domain
 
 2. **Secrets**: Update the secret values in the `shanoir-secrets` Secret:
-
    - Database passwords
    - Keycloak credentials
    - TLS certificates (base64 encoded)
